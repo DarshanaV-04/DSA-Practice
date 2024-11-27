@@ -1,0 +1,72 @@
+#include <iostream>
+#include <map>
+#include <queue>
+#include <vector>
+using namespace std;
+
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode(int value) : val(value), left(nullptr), right(nullptr) {}
+};
+
+// Function to build a binary tree from user input
+TreeNode* buildTree() {
+    cout << "Enter the values for the tree in level-order (-1 for null):" << endl;
+    int value;
+    cin >> value;
+    if (value == -1) return nullptr;
+
+    TreeNode* root = new TreeNode(value);
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        TreeNode* current = q.front();
+        q.pop();
+
+        cin >> value;
+        if (value != -1) {
+            current->left = new TreeNode(value);
+            q.push(current->left);
+        }
+
+        cin >> value;
+        if (value != -1) {
+            current->right = new TreeNode(value);
+            q.push(current->right);
+        }
+    }
+    return root;
+}
+void bottomView(TreeNode* root) {
+    if (!root) return;
+
+    map<int, int> bottomViewMap;
+    queue<pair<TreeNode*, int>> q;
+    q.push({root, 0});
+
+    while (!q.empty()) {
+        auto current = q.front();
+        q.pop();
+        TreeNode* node = current.first;
+        int hd = current.second;
+
+        bottomViewMap[hd] = node->val;
+
+        if (node->left) q.push({node->left, hd - 1});
+        if (node->right) q.push({node->right, hd + 1});
+    }
+
+    for (auto entry : bottomViewMap) {
+        cout << entry.second << " ";
+    }
+    cout << endl;
+}
+int main() {
+    TreeNode* root = buildTree();
+    cout << "Bottom View:" << endl;
+    bottomView(root);
+}
