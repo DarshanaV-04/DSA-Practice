@@ -63,3 +63,9 @@ void leftView(TreeNode* root) {
     }
     cout << endl;
 }
+int main() {
+    TreeNode* root = buildTree();
+
+    cout << "Left View:" << endl;
+    leftView(root);
+}
