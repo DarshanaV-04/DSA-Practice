@@ -1,0 +1,27 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int w = 50; 
+    vector<int> weight = {20, 10, 30}; 
+    vector<int> profit = {100, 60, 120};
+    int wt = 0; 
+    int p = 0; 
+    multimap<int, int, greater<int>> profitToWeight;
+    for (int i = 0; i < weight.size(); i++) {
+        profitToWeight.insert({profit[i], weight[i]});
+    }
+    for (auto it = profitToWeight.begin(); it != profitToWeight.end(); ++it) {
+        wt = it->second; 
+        if (wt <= w && w > 0) {
+            p += it->first; 
+            w -= wt;
+        }
+    }
+    cout << p << endl;
+
+    return 0;
+}
