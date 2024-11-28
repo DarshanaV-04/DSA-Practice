@@ -1,0 +1,38 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int findFloor(vector<int>& arr, int k) {
+        for (int i = arr.size() - 1; i >= 0; i--) {
+            if (arr[i] <= k) {
+                return i;
+            }
+        }
+        return -1;
+    }
+};
+
+int main() {
+    int n, k;
+    cout << "Enter the size of the array: ";
+    cin >> n;
+
+    vector<int> arr(n);
+    cout << "Enter " << n << " elements of the array (sorted in non-decreasing order): ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    cout << "Enter the value of k: ";
+    cin >> k;
+    Solution solution;
+    int result = solution.findFloor(arr, k);
+    if (result != -1) {
+        cout << "The floor of " << k << " is at index: " << result << endl;
+    } else {
+        cout << "No element less than or equal to " << k << " exists in the array." << endl;
+    }
+
+    return 0;
+}
