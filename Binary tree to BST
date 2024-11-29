@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int value) {
+        data = value;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+Node* insert(Node* root, int val) {
+    if (root == nullptr) {
+        return new Node(val); // Create a new node if root is null
+    }
+    if (val < root->data) {
+        root->left = insert(root->left, val); // Insert in the left subtree
+    } else if (val > root->data) {
+        root->right = insert(root->right, val); // Insert in the right subtree
+    }
+    return root; // Return the unchanged root
+}
+
+void inorderTraversal(Node* root) {
+    if (root == nullptr) {
+        return;
+    }
+    inorderTraversal(root->left); // Visit left subtree
+    cout << root->data << " ";   // Print current node's value
+    inorderTraversal(root->right); // Visit right subtree
+}
+
+int main() {
+    Node* root = nullptr;
+    int n;
+    cout << "Enter the number of nodes: ";
+    cin >> n;
+
+    cout << "Enter the nodes: ";
+    for (int i = 0; i < n; i++) {
+        int value;
+        cin >> value;
+        root = insert(root, value); // Update root after insertion
+    }
+
+    cout << "Inorder Traversal of the BST: ";
+    inorderTraversal(root); // Print the BST in sorted order
+    cout << endl;
+
+    return 0;
+}
