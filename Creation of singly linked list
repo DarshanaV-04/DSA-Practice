@@ -5,22 +5,77 @@ class Node {
 public:
     int data;
     Node* next;
-
     Node(int val) {
-        data = val;
-        next = nullptr;
+        this->data = val;
+        this->next = nullptr;
+    }
+};
+
+class Outside {
+public:
+    void insertAtBeg(Node*& head) {
+        cout << "insert at beg" << endl;
+        int d;
+        cin >> d;
+        Node* t = new Node(d);
+        t->next = head;
+        head = t;
+        Node* ptr = head;
+        while (ptr != nullptr) {
+            cout << ptr->data << " ";
+            ptr = ptr->next;
+        }
+        cout << endl;
+    }
+
+    void insertAtPos(Node* head) {
+        Node* ptr = head;
+        cout << "Enter the position to which data is added" << endl;
+        int p;
+        cin >> p;
+        cout << "Enter the data" << endl;
+        int d;
+        cin >> d;
+        Node* t = new Node(d);
+        int l = 1;
+        while (l < p - 1) {
+            l++;
+            ptr = ptr->next;
+        }
+        t->next = ptr->next;
+        ptr->next = t;
+        Node* pt = head;
+        while (pt != nullptr) {
+            cout << pt->data << " ";
+            pt = pt->next;
+        }
+        cout << endl;
+    }
+
+    void insertAtEnd(Node* head) {
+        Node* ptr = head;
+        cout << "Enter the data" << endl;
+        int d;
+        cin >> d;
+        Node* t = new Node(d);
+        while (ptr->next != nullptr) {
+            ptr = ptr->next;
+        }
+        ptr->next = t;
+        Node* pt = head;
+        while (pt != nullptr) {
+            cout << pt->data << " ";
+            pt = pt->next;
+        }
+        cout << endl;
     }
 };
 
 int main() {
-    Node* head = new Node(0); // Dummy head node
+    Node* head = new Node(0);
     Node* temp = head;
     int size;
-
-    cout << "Enter the number of nodes: ";
     cin >> size;
-
-    cout << "Enter the values of the nodes:" << endl;
     for (int i = 0; i < size; i++) {
         int d;
         cin >> d;
@@ -28,11 +83,31 @@ int main() {
         temp->next = t;
         temp = temp->next;
     }
-
-    // Print the linked list
-    Node* ptr = head->next; // Skip the dummy head node
+    Node* ptr = head->next;
     while (ptr != nullptr) {
         cout << ptr->data << " ";
         ptr = ptr->next;
     }
+    cout << endl;
+
+    cout << "1.insert at beg 2.insert at mid 3.insert at end" << endl;
+    int input;
+    cin >> input;
+    Outside obj;
+    switch (input) {
+        case 1:
+            obj.insertAtBeg(head->next);
+            break;
+        case 2:
+            obj.insertAtPos(head->next);
+            break;
+        case 3:
+            obj.insertAtEnd(head->next);
+            break;
+        default:
+            cout << "invalid input" << endl;
+    }
+
+    return 0;
 }
+
