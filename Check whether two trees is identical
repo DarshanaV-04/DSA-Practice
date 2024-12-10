@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+struct node{
+    int data;
+    node *left,*right;
+    node(int val){
+        data=val;
+        right=left=nullptr;
+    }
+};
+bool isidentical( node* root1,node* root2){
+   
+    if(root1 == nullptr && root2==nullptr) return true; 
+    if(root1== nullptr || root2==nullptr) return false;
+    return (root1->data == root2->data) && isidentical(root1->left,root2->left) && isidentical(root1->right,root2->right) ;
+}
+int main() {
+    // Write C++ code here
+    node* root1=new node(1);
+    node* root2=new node(1);
+     root1->left=new node(2);
+     root2->left=new node(2);
+    root1->right=new node(3);
+     root2->right=new node(3);
+    bool result=isidentical(root1,root2);
+    cout<<result;
+}
